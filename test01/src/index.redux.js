@@ -1,0 +1,35 @@
+
+const ADD_GUN = 'ADD_GUN';
+const REMOVE_GUN = 'REMOVE_GUN'
+
+export function reducerz(state=10,action) {
+    
+    // if(action) {
+        console.log('***',action.type)
+        switch(action.type) {
+            case ADD_GUN:
+                return state+1;
+            case REMOVE_GUN:
+                return state-1;
+            default:
+                return state;
+        }
+    // }
+
+}
+
+
+export function addGun() {
+    return {type:ADD_GUN}
+}
+
+export function removeGun() {
+    return {type:REMOVE_GUN}
+}
+export function addGunAsync() {
+    return dispatch => {
+        setTimeout(() =>{
+            dispatch(addGun())
+        },2000)
+    }
+}
