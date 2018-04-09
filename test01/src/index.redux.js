@@ -2,10 +2,10 @@
 const ADD_GUN = 'ADD_GUN';
 const REMOVE_GUN = 'REMOVE_GUN'
 
-export function reducerz(state=10,action) {
+export function couter(state=10,action) {
     
     // if(action) {
-        console.log('***',action.type)
+       
         switch(action.type) {
             case ADD_GUN:
                 return state+1;
