@@ -4,9 +4,6 @@ import {withRouter } from 'react-router-dom'
 
 @withRouter
 class AuthRoute extends React.Component {
-    constructor(props) {
-        super(props)
-    }
     componentDidMount() {
         // console.log(this.props)
         const list = ['/login','register']
@@ -16,8 +13,8 @@ class AuthRoute extends React.Component {
         }
         axios.get('/user/info').then(res => {
             console.log('******',res)
-            if(res.status == 200) {
-                if(res.data.code == 0) {
+            if(res.status === 200) {
+                if(res.data.code === 0) {
                     //有登陆信息
                 } else {
                     //没有登录信息

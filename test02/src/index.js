@@ -10,8 +10,8 @@ import {
 import { 
     BrowserRouter,
     Route,
-    Redirect,
-    Switch 
+    // Redirect,
+    // Switch 
 }                       from 'react-router-dom'
 
 import registerServiceWorker from './registerServiceWorker';
@@ -30,7 +30,7 @@ const store = createStore(reducers,compose(
 
 ReactDOM.render(
     (
-        <Provider >
+        <Provider store={store}>
             <BrowserRouter>
                 <div>
                     <AuthRoute></AuthRoute>
