@@ -18,6 +18,11 @@ class Bossinfo extends Component {
         })
         
     }
+    handleChange(key,v) {
+        this.setState({
+            [key]:v
+        })
+    }
     saveClick() {
         console.log('****boss avatar',this.state)
     }
@@ -27,13 +32,20 @@ class Bossinfo extends Component {
                 <NavBar  mode="dark">BOSS信息完善</NavBar>
                 <List>
                     <AvatarSelector avatar={v=>this.avatarClick(v)}></AvatarSelector>
-                    <InputItem>招聘职位</InputItem>
-                    <InputItem>公司名称</InputItem>
-                    <InputItem>职位薪资</InputItem>
+                    <InputItem
+                        onChange={v =>this.handleChange('title',v)}
+                    >招聘职位</InputItem>
+                    <InputItem
+                        onChange={v =>this.handleChange('company',v)}
+                    >公司名称</InputItem>
+                    <InputItem
+                        onChange={v =>this.handleChange('money',v)}
+                    >职位薪资</InputItem>
                     <TextareaItem
                         title="职位简介"
                         autoHeight
                         rows={3}
+                        onChange={v =>this.handleChange('desc',v)}
                     ></TextareaItem>
                     <WhiteSpace />
                     <WhiteSpace />
