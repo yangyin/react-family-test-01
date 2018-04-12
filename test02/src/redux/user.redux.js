@@ -28,7 +28,7 @@ export function user(state=initState,action) {
 }
 
 function errorMsg(msg) {
-    console.log('error msg :::',msg)
+    // console.log('error msg :::',msg)
     return {type:ERROR_MSG,payload:msg}
 }
 //用户信息保存
@@ -45,7 +45,7 @@ export function login({user,pwd}) {
         axios.post('/user/login',{user,pwd})
             .then(res => {
                 if(res.status === 200 && res.data.code ===0) {
-                    dispatch({type:LOGIN_SUCCESS,payload:{user,pwd}})
+                    dispatch({type:LOGIN_SUCCESS,payload:res.data.data})
                 } else {
                     dispatch(errorMsg(res.data.msg))
                 }
@@ -65,7 +65,7 @@ export function register({user,pwd,repeatPwd,type}) {
     return dispatch => {
         axios.post('/user/register',{user,pwd,type})
             .then(res => {
-                console.log('******',res.data)
+                // console.log('******',res.data)
                 if(res.status === 200 && res.data.code ===0) {
                     dispatch({type:USER_SUCCESS,payload:res.data.data})
                 } else {
