@@ -16,12 +16,15 @@ import {
 
 import registerServiceWorker from './registerServiceWorker';
 import reducers from './reducer'
+
 import './config'
+import './index.css'
 
 import Login from './container/login/login'
 import Register from './container/register/register'
 import AuthRoute from './component/authroute'
 import Bossinfo from './container/bossinfo'
+import GeniusInfo from './container/geniusinfo'
 
 const store = createStore(reducers,compose(
     applyMiddleware(thunk),
@@ -39,6 +42,7 @@ ReactDOM.render(
                         <Route path='/login' component={Login}></Route>
                         <Route path='/register' component={Register}></Route>
                         <Route path='/bossinfo' component={Bossinfo}></Route>
+                        <Route path='/geninusinfo' component={GeniusInfo}></Route>
                     </Switch>
                 </div>
             </BrowserRouter>

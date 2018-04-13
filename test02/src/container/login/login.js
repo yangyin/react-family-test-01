@@ -38,7 +38,7 @@ class Login extends React.Component {
             <div>
                 {this.props.redirectTo ?<Redirect to={this.props.redirectTo} /> : null}
                 <Logo></Logo>
-                {this.props.msg?<p>{this.props.msg}</p> : null}
+                {this.props.msg?<p className="error-msg">{this.props.msg}</p> : null}
                 <List>
                     <InputItem
                         onChange={v => this.handleChange('user',v)}

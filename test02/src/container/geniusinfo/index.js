@@ -10,14 +10,12 @@ import { update } from '../../redux/user.redux'
     state => state.user,
     {update}
 )
-class Bossinfo extends Component {
+class GeniusInfo extends Component {
     constructor(props) {
         super(props)
         this.state = {
             avatar:'',
             title:'',
-            company:'',
-            money:'',
             desc:''
         }
 
@@ -50,15 +48,9 @@ class Bossinfo extends Component {
                     <AvatarSelector avatar={v=>this.avatarClick(v)}></AvatarSelector>
                     <InputItem
                         onChange={v =>this.handleChange('title',v)}
-                    >招聘职位</InputItem>
-                    <InputItem
-                        onChange={v =>this.handleChange('company',v)}
-                    >公司名称</InputItem>
-                    <InputItem
-                        onChange={v =>this.handleChange('money',v)}
-                    >职位薪资</InputItem>
+                    >求职岗位</InputItem>
                     <TextareaItem
-                        title="职位简介"
+                        title="个人简介"
                         autoHeight
                         rows={3}
                         onChange={v =>this.handleChange('desc',v)}
@@ -73,4 +65,4 @@ class Bossinfo extends Component {
     }
 }
 
-export default Bossinfo
+export default GeniusInfo

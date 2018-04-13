@@ -62,7 +62,25 @@ Router.post('/login',(req,res) => {
         // console.log('%%%%',d)
     })
 })
+Router.post('/update',(req,res) => {
+    const { userid } = req.cookies
+    if(!userid) {
+        //没有用户登录信息
+        return res.json({code:1})
+    }
+    const body = req.body
+    // console.log('req.body:   ',req.body)
+    User.findByIdAndUpdate(userid,req.body,(e,d) => {
+        // console.log('doc update: ',d)
+        const data = Object.assign({},{
+            user:d.user,
+            type:d.type
+        },body)
 
+        return res.json({code:0,data})
+
+    })
+})
 
 
 Router.get('/list',(req,res) => {
