@@ -43,7 +43,7 @@ ReactDOM.render(
                         <Route path='/login' component={Login}></Route>
                         <Route path='/register' component={Register}></Route>
                         <Route path='/bossinfo' component={Bossinfo}></Route>
-                        <Route path='/geninusinfo' component={GeniusInfo}></Route>
+                        <Route path='/geniusinfo' component={GeniusInfo}></Route>
                         <Route component={DashBoard}></Route>
                     </Switch>
                 </div>

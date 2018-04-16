@@ -18,6 +18,7 @@ class DashBoard extends React.Component {
     render() {
 
         const user = this.props.user
+        console.log(user)
         const { pathname } = this.props.location
         const data = [
             {
@@ -26,7 +27,7 @@ class DashBoard extends React.Component {
                 icon:'boss',
                 title:'牛人列表',
                 // component:Boss,
-                hide:user.type =='boss'
+                hide:user.type ==='genius'
             },
             {
                 path:'/genius',
@@ -34,23 +35,25 @@ class DashBoard extends React.Component {
                 icon:'job',
                 title:'BOSS列表',
                 // component:Genius,
-                hide:user.type =='genius'
+                hide:user.type ==='boss'
             },
             {
                 path:'/msg',
-                text:'msg',
+                text:'消息',
                 icon:'msg',
-                title:'消息',
-                // component:Boss
+                title:'消息列表',
+                // component:Msg
             },
             {
                 path:'/me',
-                text:'me',
+                text:'我',
                 icon:'user',
                 title:'个人中心',
-                // component:Boss
+                // component:User
             },
         ]
+        console.log('&&&&&&',data)
+        console.log('pathname&&&&&&',pathname)
         return (
             <div>
                 <NavBar className="fixed-header" mode="dark">{data.find(v=> v.path == pathname).title}</NavBar>

@@ -42,7 +42,7 @@ class GeniusInfo extends Component {
         return (
             <div>
                 {redirectTo &&  redirectTo !== path?<Redirect to={this.props.redirectTo} /> : null}
-                <NavBar  mode="dark">BOSS信息完善</NavBar>
+                <NavBar  mode="dark">牛人信息完善</NavBar>
                 {this.props.msg?<p className="error-msg">{this.props.msg}</p> : null}
                 <List>
                     <AvatarSelector avatar={v=>this.avatarClick(v)}></AvatarSelector>
