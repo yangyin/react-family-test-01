@@ -25,6 +25,7 @@ import Register from './container/register/register'
 import AuthRoute from './component/authroute'
 import Bossinfo from './container/bossinfo'
 import GeniusInfo from './container/geniusinfo'
+import DashBoard from './container/dashboard'
 
 const store = createStore(reducers,compose(
     applyMiddleware(thunk),
@@ -43,6 +44,7 @@ ReactDOM.render(
                         <Route path='/register' component={Register}></Route>
                         <Route path='/bossinfo' component={Bossinfo}></Route>
                         <Route path='/geninusinfo' component={GeniusInfo}></Route>
+                        <Route component={DashBoard}></Route>
                     </Switch>
                 </div>
             </BrowserRouter>

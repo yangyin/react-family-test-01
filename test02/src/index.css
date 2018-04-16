@@ -1,3 +1,18 @@
 .error-msg {
     color: red;
 }
+
+
+.fixed-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+.fixed-header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width:100%;
+    height: 40px;
+}
