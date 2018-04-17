@@ -1,6 +1,6 @@
 import React from 'react'
 import Logo from '../../component/logo/logo'
-import { List,InputItem,Button,WhiteSpace ,WingBlank } from 'antd-mobile'
+import { List,InputItem,Button,WhiteSpace } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
@@ -30,7 +30,7 @@ class Login extends React.Component {
         })
     }
     handleSubmit() {
-        console.log(this.props)
+        // console.log(this.props)
         this.props.login(this.state)  
     }
     render() {

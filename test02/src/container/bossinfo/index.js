@@ -35,7 +35,7 @@ class Bossinfo extends Component {
         })
     }
     saveClick() {
-        console.log('****boss avatar',this.state)
+        // console.log('****boss avatar',this.state)
         this.props.update(this.state)
     }
     render() {

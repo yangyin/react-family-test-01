@@ -13,7 +13,7 @@ Router.get('/info',(req,res) => {
     const { userid } = req.cookies
     if(!userid) {
         //没有用户登录信息
-        return res.json({code:1})
+        return res.json({code:1,msg:'没有用户登录信息'})
     }
     
     User.findOne({'_id':userid},_filter,(e,d) => {
@@ -37,6 +37,7 @@ Router.post('/register',(req,res) => {
                 return res.json({code:1,msg:'后端出错了'})
             }
             const {_id,user,type} = d
+            res.cookie('userid',_id)
             return res.json({code:0,data:{_id,user,type}})
         })
         // User.create({user,type,pwd:md5Pwd(pwd)},(err,doc) => {
@@ -84,9 +85,13 @@ Router.post('/update',(req,res) => {
 
 
 Router.get('/list',(req,res) => {
+    const { type } = req.query
     // User.remove({},(err,doc) => {})
-    User.find({},(err,doc) => {
-        return res.json(doc)
+    User.find({type},_filter,(err,doc) => {
+        if(err) {
+            return res.json({code:1,msg:err})
+        }
+        return res.json({code:0,data:doc})
     })
 })
 

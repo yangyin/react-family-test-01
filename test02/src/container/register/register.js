@@ -29,7 +29,7 @@ class Register extends React.Component {
         })
     }
     handleSubmit() {
-        console.log(this.props)
+        // console.log(this.props)
         this.props.register(this.state)
         
     }

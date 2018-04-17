@@ -1,14 +1,18 @@
 import React from 'react'
 import { NavBar } from 'antd-mobile';
 import { connect } from 'react-redux'
+import { Switch , Route} from 'react-router-dom'
 
 import NavLink from './navlink/navlink'
+import Boss from './boss-list/bosslist'
+import Genius from './genius-list/geniuslist'
+import User from './user/user'
 
 
-
-function Boss() {
-    return <div>BOss</div>
+function Msg() {
+    return <div>Msg</div>
 }
+
 
 @connect(
     state=>state
@@ -18,23 +22,23 @@ class DashBoard extends React.Component {
     render() {
 
         const user = this.props.user
-        console.log(user)
+        // console.log(user)
         const { pathname } = this.props.location
         const data = [
             {
                 path:'/boss',
-                text:'牛人',
+                text:'求职',
                 icon:'boss',
-                title:'牛人列表',
-                // component:Boss,
+                title:'求职列表',
+                component:Genius,
                 hide:user.type ==='genius'
             },
             {
                 path:'/genius',
-                text:'boss',
+                text:'公司',
                 icon:'job',
-                title:'BOSS列表',
-                // component:Genius,
+                title:'公司列表',
+                component:Boss,
                 hide:user.type ==='boss'
             },
             {
@@ -42,22 +46,28 @@ class DashBoard extends React.Component {
                 text:'消息',
                 icon:'msg',
                 title:'消息列表',
-                // component:Msg
+                component:Msg
             },
             {
                 path:'/me',
                 text:'我',
                 icon:'user',
                 title:'个人中心',
-                // component:User
+                component:User
             },
         ]
-        console.log('&&&&&&',data)
-        console.log('pathname&&&&&&',pathname)
+        // console.log('&&&&&&',data)
+        // console.log('pathname&&&&&&',pathname)
         return (
             <div>
-                <NavBar className="fixed-header" mode="dark">{data.find(v=> v.path == pathname).title}</NavBar>
-                <div>context</div>
+                <NavBar className="fixed-header" mode="dark">{data.find(v=> v.path === pathname).title}</NavBar>
+                <div style={{marginTop:45}}>
+                    <Switch>
+                        {data.map(v => (
+                            <Route key={v.path} path={v.path} component={v.component}></Route>
+                        ))}
+                    </Switch>
+                </div>
                 <NavLink data={data}></NavLink>
             </div>
         )
