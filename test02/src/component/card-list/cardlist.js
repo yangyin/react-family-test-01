@@ -6,6 +6,12 @@ import { Card,WingBlank ,WhiteSpace  } from 'antd-mobile'
 class CardList extends Component {
     constructor(props) {
         super(props)
+        // this.handleCard = this.handleCard.bind(this)
+    }
+    handleCard(v) {
+        console.log(this.props)
+        console.log(v)
+        this.props.history.push(`/chat/${v.user}`)
     }
     render() {
         const Header = Card.Header
@@ -19,7 +25,7 @@ class CardList extends Component {
                     {
                         data.map(v=>(
                             <div key={v._id}>
-                                <Card>
+                                <Card onClick={_ =>this.handleCard(v)}>
                                     <Header 
                                         title={v.title}
                                         thumb={require(`../img/${v.avatar}.png`)}
