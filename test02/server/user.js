@@ -5,9 +5,9 @@ const Router = express.Router()
 
 const model = require('./models')
 const User = model.getModel('user')
+const Chat = model.getModel('chat')
 
 const _filter = {pwd:0,__v:0}
-
 
 Router.get('/info',(req,res) => {
     const { userid } = req.cookies
@@ -82,8 +82,6 @@ Router.post('/update',(req,res) => {
 
     })
 })
-
-
 Router.get('/list',(req,res) => {
     const { type } = req.query
     // User.remove({},(err,doc) => {})
@@ -93,6 +91,14 @@ Router.get('/list',(req,res) => {
         }
         return res.json({code:0,data:doc})
     })
+})
+Router.get('/getMsgList',(req,res) => {
+        Chat.find({},(e,d) => {
+            if(e) {
+                return res.json({code:1,msg:'后端出错了'})
+            }
+            return res.json({code:0,msg:d})
+        })
 })
 
 

@@ -1,6 +1,13 @@
 import React,{Component} from 'react'
 import { List,InputItem,Button } from 'antd-mobile'
+import { connect } from 'react-redux'
 
+import { getMsgList } from '../../redux/chat.redux'
+
+@connect(
+    state=>state,
+    {getMsgList}
+)
 class Chat extends Component {
     constructor(props) {
         super(props)
@@ -11,12 +18,12 @@ class Chat extends Component {
         }
     }
     componentDidMount() {
-        socket.on('recvmsg',(data) => {
-            // console.log('revcmsg::',data)
-            this.setState({
-                msg:[...this.state.msg,data.text]
-            })
-        })      
+        // socket.on('recvmsg',(data) => {
+        //     // console.log('revcmsg::',data)
+        //     this.setState({
+        //         msg:[...this.state.msg,data.text]
+        //     })
+        // })      
     }
     handleChange(v) {
         this.setState({
@@ -25,12 +32,13 @@ class Chat extends Component {
     }
     handleSubmit() {
         // console.log(socket)
-        socket.emit('sendMsg',{text:this.state.text})
+        this.props.getMsgList()
         this.setState({
             text:''
         })
     }
     render() {
+        const emoji = '😄 😃 😀 😊 😉 😍 😘 😚 😗 😙 😜 😝 😛 😳 😁 😔 😌 😒 😞 😣 😢 😂 😭 😪 😥 😰 😅 😓 😩 😫 😨 😱 😠 😡 😤 😖 😆 😋 😷 😎 😴 😵 😲 😟 😦 😧 😈 👿 😮 😬 😐 😕 😯 😶 😇 😏 😑 👲 👳 👮 👷 💂 👶 👦 👧 👨 👩 👴 👵 👱 👼 👸 💛 💙 💜 💚 ❤ 💔 💗 💓 💕 💖 💞 💘 💌 💋 💍 💎 👤 👥 💬 👣 💭'
         return (
             <div id="chat">
                 <div>
