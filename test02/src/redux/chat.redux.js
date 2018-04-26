@@ -17,14 +17,16 @@ const initState = {
 export function chat(state=initState,action) {
     switch(action.type) {
         case MSG_LIST:
-            return {...state,chatmsg:action.payload.msg,unread:0}
+            return {...state,chatmsg:action.payload.msg,unread:(action.payload.msg.filter(v => !v.read).length)}
+        case MSG_RECV:
+            return {...state,chatmsg:[...state.chatmsg,action.payload],unread:state.unread+1}
         default:
             return state
     }
 }
 
 function msgList(msg) {
-    return {type:'MSG_LIST',payload:{msg}}
+    return { type:'MSG_LIST',payload:{msg} }
 }
 
 export function getMsgList() {
@@ -38,5 +40,18 @@ export function getMsgList() {
             }
         })
         
+    }
+}
+export function recvMsg() {
+    return dispatch =>{
+        socket.on('recvmsg',(data) => {
+            dispatch({type:MSG_RECV,payload:data})
+        })
+    }
+}
+
+export function postMsg(data) {
+    return dispatch => {
+        socket.emit('sendMsg',data)
     }
 }

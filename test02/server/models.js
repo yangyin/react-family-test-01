@@ -24,7 +24,7 @@ const models = {
         'read':{type:Boolean,require:true,default:false},
         'from':{type:String,require:true},
         'to':{type:String,require:true},
-        'content':{type:String,require:true,default:''},
+        'content':{type:String,require:true},
         'create_time':{type:Number,default:new Date().getTime()}
     }
 }
