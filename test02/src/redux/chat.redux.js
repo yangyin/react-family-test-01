@@ -11,13 +11,14 @@ const MSG_READ = 'MSG_READ'
 
 const initState = {
     chatmsg:[],
+    users:{},
     unread:0
 }
 
 export function chat(state=initState,action) {
     switch(action.type) {
         case MSG_LIST:
-            return {...state,chatmsg:action.payload.msg,unread:(action.payload.msg.filter(v => !v.read).length)}
+            return {...state,users:action.payload.users,chatmsg:action.payload.msg,unread:(action.payload.msg.filter(v => !v.read).length)}
         case MSG_RECV:
             return {...state,chatmsg:[...state.chatmsg,action.payload],unread:state.unread+1}
         default:
@@ -25,8 +26,8 @@ export function chat(state=initState,action) {
     }
 }
 
-function msgList(msg) {
-    return { type:'MSG_LIST',payload:{msg} }
+function msgList(data) {
+    return { type:'MSG_LIST',payload:{msg:data.msg,users:data.users} }
 }
 
 export function getMsgList() {
@@ -34,9 +35,9 @@ export function getMsgList() {
         // socket.emit('sendMsg',obj)
         axios.get('/user/getMsgList')
         .then(data=>{
-            console.log('*****',data)
+            // console.log('*****',data)
             if(data.status === 200 && data.data.code == 0) {
-                dispatch(msgList(data.data.msg))
+                dispatch(msgList(data.data))
             }
         })
         

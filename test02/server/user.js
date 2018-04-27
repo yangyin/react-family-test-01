@@ -93,12 +93,21 @@ Router.get('/list',(req,res) => {
     })
 })
 Router.get('/getMsgList',(req,res) => {
-        Chat.find({},(e,d) => {
+    const { userid } = req.cookies
+    User.find({},(e,doc) => {
+        let users = {}
+        doc.forEach(v => {
+            users[v._id] = {name:v.user,avatar:v.avatar}
+        });
+
+        Chat.find({'$or':[{from:userid},{to:userid}]},(e,d) => {
             if(e) {
                 return res.json({code:1,msg:'后端出错了'})
             }
-            return res.json({code:0,msg:d})
-        })
+            return res.json({code:0,msg:d,users:users})
+        })        
+    })
+
 })
 
 

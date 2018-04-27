@@ -21,8 +21,10 @@ class Chat extends Component {
         }
     }
     componentDidMount() {
-        this.props.getMsgList()   
-        this.props.recvMsg() 
+        if(!this.props.chat.chatmsg.length) {
+            this.props.getMsgList()   
+            this.props.recvMsg() 
+        }
     }
     handleChange(v) {
         this.setState({
@@ -42,29 +44,33 @@ class Chat extends Component {
     }
     render() {
         const Item = List.Item
-        const { chatmsg } = this.props.chat
+        const { chatmsg,users } = this.props.chat
         const emoji = '😄 😃 😀 😊 😉 😍 😘 😚 😗 😙 😜 😝 😛 😳 😁 😔 😌 😒 😞 😣 😢 😂 😭 😪 😥 😰 😅 😓 😩 😫 😨 😱 😠 😡 😤 😖 😆 😋 😷 😎 😴 😵 😲 😟 😦 😧 😈 👿 😮 😬 😐 😕 😯 😶 😇 😏 😑 👲 👳 👮 👷 💂 👶 👦 👧 👨 👩 👴 👵 👱 👼 👸 💛 💙 💜 💚 ❤ 💔 💗 💓 💕 💖 💞 💘 💌 💋 💍 💎 👤 👥 💬 👣 💭'
+        if(!users[this.state.toid]) {return null;}
         return (
             <div id="chat">
                 <NavBar
                     mode="light"
                     icon={<Icon type="left" />}
-                    onLeftClick={() => console.log('onLeftClick')}
+                    onLeftClick={() => this.props.history.goBack()}
                 >NavBar</NavBar>
                 <div>
                     {
-                        chatmsg.map(v => (
-                            this.state.toid == v.from ? 
+                        chatmsg.map(v => {
+                            const avatar = require(`../img/${users[v.from].avatar}.png`)
+                            return this.state.toid == v.from ? 
                                 (<List key={v._id}>
-                                    <Item>对方发来的：{v.content}</Item>
+                                    <Item
+                                        thumb={avatar}
+                                    >{v.content}</Item>
                                 </List>)
                                  :
                                 (
                                     <List key={v._id}>
-                                        <Item extra={<span>我方：{v.content}</span>}> </Item>
+                                        <Item className="chat-me" extra={<img src={avatar}/>}>{v.content}</Item>
                                     </List>
                                 )
-                        ))
+                        })
                     }
                 </div>
                 <List className="fixed-footer">

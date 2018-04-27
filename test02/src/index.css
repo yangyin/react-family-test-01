@@ -28,3 +28,9 @@
 #chat .am-list-item .am-input-extra {
     max-height: 30px;
 }
+#chat .am-list-item .am-list-line .am-list-extra {
+    flex-basis:auto;
+}
+#chat .chat-me .am-list-line .am-list-content {
+    text-align: right;
+}

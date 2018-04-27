@@ -11,11 +11,14 @@ const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
+
+
 app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 app.use('/user',userRouter)
+
 
 // Chat.remove({},(e,d) =>{})
 
