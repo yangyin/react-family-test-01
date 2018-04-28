@@ -4,13 +4,10 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { TabBar } from 'antd-mobile'
 
-import { getMsgList ,recvMsg } from '../../../redux/chat.redux'
-
-@withRouter
 @connect(
-	state=>state.chat,
-	{getMsgList ,recvMsg}
+	state=>state.chat
 )
+@withRouter
 class NavLink extends React.Component {
 	static propTypes = {
 		data:PropTypes.array.isRequired
@@ -18,15 +15,9 @@ class NavLink extends React.Component {
 	constructor(props) {
 		super(props)
 	}
-	componentDidMount() {
-		
-        this.props.getMsgList()   
-        this.props.recvMsg() 
-    }
 	render () {
 		const Item = TabBar.Item
 		const navList = this.props.data.filter(v => !v.hide )
-		console.log(this.props)
 		// console.log(navList)
 		return(
 			<div  className="fixed-footer">

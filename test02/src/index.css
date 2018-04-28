@@ -34,3 +34,15 @@
 #chat .chat-me .am-list-line .am-list-content {
     text-align: right;
 }
+.stick-footer {
+    z-index: 10;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+#chat .am-grid-icon {
+    display: none;
+}
+#chat .am-grid-text {
+    margin-top: 0;
+}

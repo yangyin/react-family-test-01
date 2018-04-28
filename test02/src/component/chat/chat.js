@@ -1,9 +1,10 @@
 import React,{Component} from 'react'
-import { List,InputItem,Button , NavBar, Icon} from 'antd-mobile'
+import { List,InputItem,Button , NavBar, Icon,Grid } from 'antd-mobile'
 import { connect } from 'react-redux'
 
 import { getMsgList ,postMsg,recvMsg } from '../../redux/chat.redux'
-import { Item } from 'antd-mobile/lib/tab-bar';
+// import { Item } from 'antd-mobile/lib/tab-bar';
+import {getChatId} from '../../util'
 
 @connect(
     state=>state,
@@ -25,6 +26,9 @@ class Chat extends Component {
             this.props.getMsgList()   
             this.props.recvMsg() 
         }
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'))
+        }, 0);
     }
     handleChange(v) {
         this.setState({
@@ -44,8 +48,14 @@ class Chat extends Component {
     }
     render() {
         const Item = List.Item
-        const { chatmsg,users } = this.props.chat
+        const { users } = this.props.chat
+        const chatid = getChatId(this.props.user._id,this.state.toid)
+        const chatmsg = this.props.chat.chatmsg.filter(v => v.chatid === chatid)
+        
         const emoji = '😄 😃 😀 😊 😉 😍 😘 😚 😗 😙 😜 😝 😛 😳 😁 😔 😌 😒 😞 😣 😢 😂 😭 😪 😥 😰 😅 😓 😩 😫 😨 😱 😠 😡 😤 😖 😆 😋 😷 😎 😴 😵 😲 😟 😦 😧 😈 👿 😮 😬 😐 😕 😯 😶 😇 😏 😑 👲 👳 👮 👷 💂 👶 👦 👧 👨 👩 👴 👵 👱 👼 👸 💛 💙 💜 💚 ❤ 💔 💗 💓 💕 💖 💞 💘 💌 💋 💍 💎 👤 👥 💬 👣 💭'
+                        .split(' ')
+                        .map(v=>({text:v}))
+        console.log(emoji)
         if(!users[this.state.toid]) {return null;}
         return (
             <div id="chat">
@@ -53,7 +63,7 @@ class Chat extends Component {
                     mode="light"
                     icon={<Icon type="left" />}
                     onLeftClick={() => this.props.history.goBack()}
-                >NavBar</NavBar>
+                >{users[this.state.toid].name}</NavBar>
                 <div>
                     {
                         chatmsg.map(v => {
@@ -73,14 +83,29 @@ class Chat extends Component {
                         })
                     }
                 </div>
-                <List className="fixed-footer">
-                    <InputItem
-                        placeholder='请输入'
-                        value={this.state.text}
-                        onChange={(v)=> this.handleChange(v)}
-                        extra={<Button type="ghost" inline size="small" onClick={this.handleSubmit}>发送</Button>}
-                    ></InputItem>
-                </List>
+                <div className="stick-footer">
+                    <List>
+                        <InputItem
+                            placeholder='请输入'
+                            value={this.state.text}
+                            onChange={(v)=> this.handleChange(v)}
+                            extra={
+                                <div>
+                                    <span>表情</span>
+                                    <Button type="ghost" inline size="small" onClick={this.handleSubmit}>发送</Button>
+                                </div>
+                                
+                            }
+                        ></InputItem>
+                    </List>
+                    <Grid 
+                        data={emoji}
+                        columnNum={9}
+                        carouselMaxRow={4}
+                        isCarousel={true}
+                    />
+                </div>
+
             </div>
         )
     }

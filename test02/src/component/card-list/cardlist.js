@@ -9,8 +9,8 @@ class CardList extends Component {
         // this.handleCard = this.handleCard.bind(this)
     }
     handleCard(v) {
-        console.log(this.props)
-        console.log(v)
+        // console.log(this.props)
+        // console.log(v)
         this.props.history.push(`/chat/${v._id}`)
     }
     render() {
