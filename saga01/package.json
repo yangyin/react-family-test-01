@@ -5,14 +5,7 @@
   "dependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-<<<<<<< HEAD
     "react-scripts": "1.1.4"
-=======
-    "react-redux": "^5.0.7",
-    "react-scripts": "1.1.4",
-    "redux": "^4.0.0",
-    "redux-saga": "^0.16.0"
->>>>>>> fcfd4d70b9de9fc9f0a529e044d8b3740fa7981c
   },
   "scripts": {
     "start": "react-scripts start",
@@ -20,8 +13,4 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> fcfd4d70b9de9fc9f0a529e044d8b3740fa7981c
