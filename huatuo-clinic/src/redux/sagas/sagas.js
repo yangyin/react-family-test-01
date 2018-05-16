@@ -1,9 +1,11 @@
-import { loginUserAsync } from './user.saga'
-import { takeLatest,all } from 'redux-saga/effects';
-import { LOGIN_ACTION } from '../actions/user.action';
+import { takeLatest,all } from 'redux-saga/effects'
+
+import { userSaga } from './user.saga'
+
+
 
 export default function* rootSaga() {
     yield all([
-        takeLatest(LOGIN_ACTION,loginUserAsync)
+        ...userSaga
     ])
 }
