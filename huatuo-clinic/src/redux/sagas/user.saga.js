@@ -3,11 +3,12 @@ import {select, put, call,takeLatest,fork } from 'redux-saga/effects'
 import { LOGIN_ACTION } from '../actions/user.action'
 import { login } from '../api/login';
 
-export function* loginUserAsync({data}) {
+export function* loginUserAsync({payload}) {
     // const user = yield select(state =>state)
-    console.log(data)
-    const json = yield call(login.bind(this,data),'login')
-    console.log('json',json)
+    // console.log('payload',payload)
+    const {data} = yield call(login.bind(this,payload),'login')
+    
+    console.log('json',data)
 }
 
 

@@ -1,6 +1,6 @@
 
 import axios from 'axios'
-// import { Toast } from 'antd-mobile'
+import { message } from 'antd'
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
@@ -10,8 +10,19 @@ axios.interceptors.request.use((config) => {
     // Toast.loading('加载中',0)
     return config
 })
-axios.interceptors.response.use((config) => {
+axios.interceptors.response.use((response) => {
     // Toast.hide()
-    return config
+    const { data } = response
+    // console.log('response',data)
+    if(data.code != '000000') {
+        message.error(data.message)
+    }
+
+
+    return response
 })
+
+message.config({
+    maxCount: 2,
+  })
 

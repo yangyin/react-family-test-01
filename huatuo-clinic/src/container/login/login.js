@@ -30,6 +30,7 @@ class Login extends Component {
     }
     render() {
         const FormItem = Form.Item
+        console.log(this.props)
         return (
             <div>
                 <Form className="login-form" onSubmit={this.handleSubmit}>

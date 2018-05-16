@@ -5,20 +5,20 @@ export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 export const loginAction = (user) =>{
     return {
         type:LOGIN_ACTION,
-        data:user
+        payload:user
     }
 }
 
 export const loginSuccessAction = (token) => {
     return {
       type: LOGIN_USER_SUCCESS,
-      data: token,
+      payload: token,
     }
   }
 
 export const loginFailureAction = (error) => {
     return {
       type: LOGIN_USER_FAILURE,
-      data: error,
+      payload: error,
     }
   }
