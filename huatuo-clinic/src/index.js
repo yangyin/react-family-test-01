@@ -12,6 +12,7 @@ import rootSaga from './redux/sagas/sagas'
 import './index.css'
 // import App from './App'
 import Login from './container/login/login'
+import Home from './container/home/home'
 
 import registerServiceWorker from './registerServiceWorker'
 
@@ -30,6 +31,7 @@ ReactDOM.render(
             <BrowserRouter>
                 <Switch>
                     <Route path='/login' component={Login}></Route>
+                    <Route path="/home" component={Home}></Route>
                 </Switch>
             </BrowserRouter>
         </Provider>

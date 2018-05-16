@@ -116,5 +116,5 @@
     "babel-plugin-import": "^1.7.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4"
   },
-  "proxy": "http://192.168.100.28:80"
+  "proxy": "http://zs.huatuooh.com"
 }

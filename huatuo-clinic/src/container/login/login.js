@@ -1,12 +1,14 @@
 
 import React,{ Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { Form, Icon, Input, Button } from 'antd'
 
 import { loginAction } from '../../redux/actions/user.action'
 
 @connect(
-    state=>state
+    state=>state,
+    {loginAction}
 )
 class Login extends Component {
     constructor(props) {
@@ -26,13 +28,15 @@ class Login extends Component {
     handleSubmit(e) {
         e.preventDefault();
         // console.log(this.props)
-        this.props.dispatch(loginAction(this.state))
+        this.props.loginAction(this.state)
+        // this.props.dispatch(loginAction(this.state))
     }
     render() {
         const FormItem = Form.Item
-        console.log(this.props)
+        console.log('login page',this.props)
         return (
             <div>
+                {this.props.user.baseUserInfo ?<Redirect to="/home" /> : null}
                 <Form className="login-form" onSubmit={this.handleSubmit}>
                     <FormItem>
                         <Input 

@@ -9,10 +9,10 @@ export const loginAction = (user) =>{
     }
 }
 
-export const loginSuccessAction = (token) => {
+export const loginSuccessAction = (data) => {
     return {
       type: LOGIN_USER_SUCCESS,
-      payload: token,
+      payload: data,
     }
   }
 
