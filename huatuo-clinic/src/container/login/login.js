@@ -33,7 +33,7 @@ class Login extends Component {
     }
     render() {
         const FormItem = Form.Item
-        console.log('login page',this.props)
+        // console.log('login page',this.props)
         return (
             <div>
                 {this.props.user.baseUserInfo ?<Redirect to="/home" /> : null}

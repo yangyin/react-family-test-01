@@ -25,5 +25,5 @@ axios.interceptors.response.use((response) => {
 
 message.config({
     maxCount: 2,
-  })
+})
 
