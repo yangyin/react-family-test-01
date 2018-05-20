@@ -1,5 +1,5 @@
 import React,{ Component } from 'react'
-import { BrowserRouter,Route, Redirect, Switch } from 'react-router-dom'
+import { Route, Redirect, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import styles from './home.css'
@@ -7,6 +7,7 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd'
 import { systemMenuAction,systemMenuSuccess } from '../../redux/actions/home.action'
 
 import Menus from '../../components/menu/menu'
+import Contents from './content/content'
 
 
 const { SubMenu } = Menu
@@ -36,44 +37,83 @@ const home = ({match}) => {
     { systemMenuAction,systemMenuSuccess }
 )
 class Home extends Component {
-
+    constructor(props) {
+        super(props)
+        this.state = {
+            selectedKeys:'ROLE_CS_MZ_MENU'
+        }
+        this.handleSusMenu = this.handleSusMenu.bind(this)
+        this.watchChildrenKey = this.watchChildrenKey.bind(this)
+    }
     componentDidMount() {
         // console.log('sys menu mout:  ',this.props)
         const sys_menu = localStorage.getItem('ht_sys_menu')
         sys_menu ? this.props.systemMenuSuccess(JSON.parse(sys_menu)) : this.props.systemMenuAction() 
     }
+    handleSusMenu(e) {
+        // console.log(e)
+        this.setState({
+            selectedKeys:e.key
+        })
+    }
+
+    watchChildrenKey(key) {
+        console.log('home key  ',key)
+        console.log(this)
+    }
+
     render() {
         // console.log(this.props)
         const topBar = {backgroundColor:'#2081c7',height:'32px',color:'#fff',lineHeight:'32px',padding:'0 100px'}
         const path = this.props.match.path
         return (
             <div>
-                {/* <p>home page</p> */ console.log(this.props)}
+                {/* <p>home page</p> */ }
                 <div style={topBar}>header</div>
                 <Layout>
                     <Header className="header" style={{backgroundColor:"#fff"}}>
-                        <Menu
-                            theme="light"
-                            mode="horizontal"
-                            defaultSelectedKeys={['2']}
-                            style={{ lineHeight: '64px' }}
-                        >
-                            <Menu.Item><img src={require("../../img/banner-1.png")} style={{height:'50px'}} alt="logo"/><label style={{fontSize:'20px',color:'#2081c7',fontWeight:'700'}}>云诊所</label></Menu.Item>
-                            {
-                                this.props.sysMenu.map(v => (
-                                    v.sortNo !== 1 ?<Menu.Item key={v.sortNo}>{v.name}</Menu.Item>:null
-                                ))
-                                
-                            }
-                        </Menu>
+                    
+                        {this.props.sysMenu.length>0 ? (
+                            <Menu
+                                style={{ height: '100%',lineHeight: '64px' }}
+                                mode="horizontal"
+                                defaultSelectedKeys={["ROLE_CS_MZ_MENU"]}
+                                selectedKeys={[this.state.selectedKeys]}
+                                onClick={this.handleSusMenu}
+                            >
+                                <Menu.Item><img src={require("../../img/banner-1.png")} style={{height:'50px'}} alt="logo"/><label style={{fontSize:'20px',color:'#2081c7',fontWeight:'700'}}>云诊所</label></Menu.Item>
+                                {
+                                    this.props.sysMenu.filter(v=>v.resId != '01-ytsz').map(v => (
+                                        <Menu.Item key={v.code}>{v.name}</Menu.Item>
+                                    ))
+                                }
+                            </Menu>
+                        )  : null}
+                        
+                        {
+                            // console.log('sysMenu:  ',this.props.sysMenu)
+                            // <Menus data={this.props.sysMenu.slice(1)} mode="horizontal" />
+                            // <Menus data={this.props.sysMenu[1].children} mode="inline" />
+                            // <Menu theme="light" mode="horizontal" defaultSelectedKeys={['2']} style={{ lineHeight: '64px' }} >
+                            // <Menu.Item><img src={require("../../img/banner-1.png")} style={{height:'50px'}} alt="logo"/><label style={{fontSize:'20px',color:'#2081c7',fontWeight:'700'}}>云诊所</label></Menu.Item> </Menu>
+                        }
                     </Header>
                     <Content style={{ padding: '0 50px' }}>
                         <Layout style={{ background: '#fff' }}>
                             <Sider width={200} style={{ background: '#fff' }}>
-                                <Menus />
+                                {
+                                    this.props.sysMenu.length>0 ? 
+                                        <Menus 
+                                            mode="inline" 
+                                            navSelectKey={this.watchChildrenKey}
+                                            // defaultKeys="ROLE_SS_XGRYXX_MENU" 
+                                            data={this.props.sysMenu.find(v=>v.code == this.state.selectedKeys).children}
+                                        />: null
+                                }
+                                
                             </Sider>
                             <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                                Content
+                                <Contents />
                             </Content>
                         </Layout>
                     </Content>

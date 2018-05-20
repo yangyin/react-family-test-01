@@ -11,7 +11,7 @@ export function* loginUserAsync({payload}) {
         yield put(loginSuccessAction(data.baseUserInfo))
     }
     
-    console.log('json',data)
+    // console.log('json',data)
 }
 
 
