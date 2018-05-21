@@ -3,16 +3,18 @@ import CommonInput from './inputCommon'
 
 
 
-@CommonInput({mode:'input'})
-export default class InputOption extends Component {
+@CommonInput({mode:'select'})
+export default class SelectInput extends Component {
     constructor(props) {
         super(props)
         this.state = {
             mode:'test'
         }
     }
+
     render() {
-        return null
+        return (
+            <p>天</p>
+        )
     }
 }
-

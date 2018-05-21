@@ -10,7 +10,8 @@ class Contents extends Component {
         return (
             <div>
                 <Switch>
-                    <Route path={`${path}`} component = {Register}/>
+                    <Route path={`${path}/register`} component = {Register}/>
+                    <Redirect to={`${path}/register`} />
                 </Switch>
             </div>
         )

@@ -63,12 +63,11 @@ class Home extends Component {
     }
 
     render() {
-        // console.log(this.props)
         const topBar = {backgroundColor:'#2081c7',height:'32px',color:'#fff',lineHeight:'32px',padding:'0 100px'}
         const path = this.props.match.path
+        const menusStyle = { height: '100%',lineHeight: '64px' }
         return (
             <div>
-                {/* <p>home page</p> */ }
                 <div style={topBar}>header</div>
                 <Layout>
                     <Header className="header" style={{backgroundColor:"#fff"}}>
@@ -89,16 +88,8 @@ class Home extends Component {
                                 }
                             </Menu>
                         )  : null}
-                        
-                        {
-                            // console.log('sysMenu:  ',this.props.sysMenu)
-                            // <Menus data={this.props.sysMenu.slice(1)} mode="horizontal" />
-                            // <Menus data={this.props.sysMenu[1].children} mode="inline" />
-                            // <Menu theme="light" mode="horizontal" defaultSelectedKeys={['2']} style={{ lineHeight: '64px' }} >
-                            // <Menu.Item><img src={require("../../img/banner-1.png")} style={{height:'50px'}} alt="logo"/><label style={{fontSize:'20px',color:'#2081c7',fontWeight:'700'}}>云诊所</label></Menu.Item> </Menu>
-                        }
                     </Header>
-                    <Content style={{ padding: '0 50px' }}>
+                    <Content style={{ padding: '0 50px' ,marginTop:'10px'}}>
                         <Layout style={{ background: '#fff' }}>
                             <Sider width={200} style={{ background: '#fff' }}>
                                 {
@@ -106,7 +97,7 @@ class Home extends Component {
                                         <Menus 
                                             mode="inline" 
                                             navSelectKey={this.watchChildrenKey}
-                                            // defaultKeys="ROLE_SS_XGRYXX_MENU" 
+                                            style={menusStyle}
                                             data={this.props.sysMenu.find(v=>v.code == this.state.selectedKeys).children}
                                         />: null
                                 }
@@ -122,7 +113,7 @@ class Home extends Component {
                     </Footer>
                 </Layout>
                 <Switch>
-                    {/* <Route path={`${path}`} exact component={home}></Route> */}
+                    <Route path={`${path}`} exact component={home}></Route>
                     <Route path={`${path}/test`} component={test}></Route>
                 </Switch>
             </div>
