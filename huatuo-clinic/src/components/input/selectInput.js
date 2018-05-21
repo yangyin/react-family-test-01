@@ -12,6 +12,12 @@ export default class SelectInput extends Component {
         }
     }
 
+    componentDidUpdate(nextProps,nextState) {
+        console.log('selectInput.js props: ' , nextProps)
+        console.log('selectInput.js state: ' , nextState)
+        console.log('slectinput:  ',this.state)
+    }
+   
     render() {
         return (
             <p>天</p>

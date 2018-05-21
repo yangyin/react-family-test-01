@@ -21,7 +21,7 @@ class RegisterForm extends Component {
                 <Form>
                     <FormItem>
                         {/* <InputOption option={{name:'姓名',subname:'',lastname:''}} /> */}
-                        <SelectInput option={{name:'姓名',subname:'',lastname:''}} />
+                        <SelectInput option={{name:'性别',subname:'男'}} />
                     </FormItem>
                 </Form>
             </div>
