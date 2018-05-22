@@ -1,5 +1,5 @@
 import React,{ Component } from 'react'
-import { Form, Icon, Button ,Select, Spin} from 'antd'
+import { Form, Icon, Button ,Select, Spin, Row, Col,Input,DatePicker} from 'antd'
 import debounce from 'lodash/debounce'
 import { connect } from 'react-redux'
 
@@ -67,22 +67,39 @@ class RegisterForm extends Component {
         return (
             <div style={{marginTop:'20px'}}>
                 <Form>
-                    <FormItem>
-                    <Select
-                        mode="multiple"
-                        labelInValue
-                        value={value}
-                        placeholder="Select users"
-                        notFoundContent={fetching ? <Spin size="small" /> : null}
-                        filterOption={false}
-                        // onSearch={this.fetchUser}
-                        onChange={this.handleChange}
-                        onInputKeyDown={this.handleKeyUp}
-                        style={{ width: '100%' }}
-                    >
-                        {data.map(d => <Option key={d.value}>{d.text}</Option>)}
-                    </Select>
-                    </FormItem>
+                    <Row gutter={16}>
+                        <Col sm={8}>
+                            <FormItem
+                                label="姓名"
+                                labelCol={{ span: 10 }}
+                                wrapperCol={{ span: 14 }}
+                            >
+                                <Input placeholder="" size="default" />
+                            </FormItem>
+                        </Col>  
+                        <Col sm={8} >
+                            <FormItem
+                                label="性别"
+                                labelCol={{ span: 10 }}
+                                wrapperCol={{ span: 14 }}
+                            >
+                                <Select
+                                    mode="multiple"
+                                    labelInValue
+                                    value={value}
+                                    placeholder="Select users"
+                                    notFoundContent={fetching ? <Spin size="small" /> : null}
+                                    filterOption={false}
+                                    // onSearch={this.fetchUser}
+                                    onChange={this.handleChange}
+                                    onInputKeyDown={this.handleKeyUp}
+                                    style={{ width: '100%' }}
+                                >
+                                    {data.map(d => <Option key={d.value}>{d.text}</Option>)}
+                                </Select>
+                            </FormItem>
+                        </Col>                     
+                    </Row>
                 </Form>
             </div>
         )
