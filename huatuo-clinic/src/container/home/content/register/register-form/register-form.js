@@ -1,5 +1,5 @@
 import React,{ Component } from 'react'
-import { Form, Icon, Button ,Select, Spin, Row, Col,Input,DatePicker} from 'antd'
+import { Form, Icon, Button ,Select, Spin, Row, Col,Input,DatePicker,InputNumber } from 'antd'
 import debounce from 'lodash/debounce'
 import { connect } from 'react-redux'
 
@@ -38,23 +38,39 @@ class RegisterForm extends Component {
         });
 
     }
-    handleKeyUp = (e) => {
-        console.log(e.which)
+    onOpenChange2 = (v) => {
+        console.log(111111111)
         this.setState({
-            datePickerShow:true
+            datePickerShow:false
         })
-        if(e.which == 32) {
-            if(!this.props.sex) {
-                this.props.registerSexAction()
-            }
-            
+    }
+    handleKeyUp = (e,type) => {
+        // console.log(e.which)
+        switch(type) {
+            case 'sex':
+                if(e.which == 32) {
+                    if(!this.props.sex) {
+                        this.props.registerSexAction()
+                    }
+                    
+                }
+            break
+            case 'date':
+                this.setState({
+                    datePickerShow:true
+                })
+            break
+            default:
+
         }
+        
+        
     }
     render() {
         // console.log(' register form props: ',this.props)
         const InputGroup = Input.Group
         const { fetching, data, value } = this.state
-        console.log('render value: ',value)
+        console.log('render value: ',this.state.datePickerShow)
         return (
             <div style={{marginTop:'20px'}}>
                 <Form>
@@ -83,7 +99,7 @@ class RegisterForm extends Component {
                                     // onSearch={this.fetchUser}
                                     showSearch={true}
                                     onChange={this.handleChange}
-                                    onInputKeyDown={this.handleKeyUp}
+                                    onInputKeyDown={(e)=>this.handleKeyUp(e,'sex')}
                                     style={{ width: '100%' }}
                                 >
                                     {this.props.sex?this.props.sex.map(d => <Option key={d.dictItemId}>{d.dictItemName}</Option>):null}
@@ -99,16 +115,16 @@ class RegisterForm extends Component {
                                 wrapperCol={{ span: 14 }}
                             >   
                                 <Col sm={8} style={{display:'flex',alignItems:'center'}}>
-                                    <Input placeholder="" size="default" />
-                                    <span className="ant-form-text"> 年</span>
+                                    <InputNumber min={0} placeholder="" size="default" />
+                                    <span className="ant-form-text"> 岁</span>
                                 </Col>
                                 <Col sm={8} style={{display:'flex',alignItems:'center'}}>
-                                    <Input placeholder="" size="default" />
+                                    <InputNumber min={0} placeholder="" size="default" />
                                     <span className="ant-form-text"> 月</span>
                                 </Col>
                                 <Col sm={8} style={{display:'flex',alignItems:'center'}}>
-                                    <Input placeholder="" size="default" />
-                                    <span className="ant-form-text"> 日</span>
+                                    <InputNumber min={0} placeholder="" size="default" />
+                                    <span className="ant-form-text"> 天</span>
                                 </Col>
                                 
                             </FormItem>
@@ -120,8 +136,8 @@ class RegisterForm extends Component {
                                 wrapperCol={{ span: 14 }}
                                 style={{position:'relative'}}
                             >
-                                <div onKeyDown={this.handleKeyUp}>
-                                    <DatePicker open={this.state.datePickerShow} />
+                                <div onKeyDown={(e)=>this.handleKeyUp(e,'date')} >
+                                    <DatePicker open={this.state.datePickerShow} onOpenChange={(v)=>this.onOpenChange2(v)} />
                                 </div>
                                 
                                 
