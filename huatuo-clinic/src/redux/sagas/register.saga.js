@@ -1,8 +1,8 @@
 
 import { takeLatest,all, fork,call,put } from 'redux-saga/effects'
 
-import { REGISTER_SEX_ACTION } from '../actions/register.action'
-// import { systemMenu } from '../api/home'
+import { REGISTER_SEX_ACTION ,registerSexSuccess } from '../actions/register.action'
+import { registerSex } from '../api/register'
 
 
 
@@ -10,15 +10,14 @@ import { REGISTER_SEX_ACTION } from '../actions/register.action'
 
 
 function* sexAsync() {
-    console.log(11111111111111)
-    // try {
-    //     const {data:{listDto}} = yield call(systemMenu.bind(this),'systemMenu')
-    //     // console.log(listDto)
-    //     localStorage.setItem('ht_sys_menu',JSON.stringify(listDto))
-    //     yield put(systemMenuSuccess(listDto))
-    // } catch(e) {
-    //     console.log(e)
-    // }
+    // console.log(11111111111111)
+    try {
+        const res = yield call(registerSex.bind(this),'registerSex')
+        // console.log('sex requ: ',res)
+        yield put(registerSexSuccess(res.data))
+    } catch(e) {
+        console.log(e)
+    }
     
     
 }
