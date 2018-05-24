@@ -2,7 +2,7 @@ import React,{ Component,PureComponent } from 'react'
 import { Route, Redirect, Switch,withRouter } from 'react-router-dom'
 import Loadable from 'react-loadable'
 
-import Menus from '../../../../components/menu/menu'
+import Menus from '../../../../../components/menu/menu'
 
 import RegisterForm from './register-form/register-form'
 import RegisterRecord from './register-record/register-record'

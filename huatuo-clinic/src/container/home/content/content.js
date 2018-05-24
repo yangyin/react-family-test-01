@@ -2,7 +2,7 @@ import React,{ Component,PureComponent } from 'react'
 import { Route, Redirect, Switch,withRouter } from 'react-router-dom'
 import Loadable from 'react-loadable'
 
-import Register from './register/register'
+import Register from './outpatient/register/register'
 import Charge from './dispensingfees/charge'
 
 const ChargeComponent = Loadable({

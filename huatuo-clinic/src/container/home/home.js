@@ -11,7 +11,7 @@ import { systemMenuAction,systemMenuSuccess } from '../../redux/actions/home.act
 import Menus from '../../components/menu/menu'
 import Contents from './content/content'
 
-import Register from './content/register/register'
+// import Register from './content/register/register'
 import Charge from './content/dispensingfees/charge'
 
 

@@ -3,7 +3,7 @@ import { Form, Icon, Button ,Select, Spin, Row, Col,Input,DatePicker,InputNumber
 import debounce from 'lodash/debounce'
 import { connect } from 'react-redux'
 
-import { registerSexAction } from '../../../../../redux/actions/register.action'
+import { registerSexAction } from '../../../../../../redux/actions/register.action'
 
 // import InputOption from '../../../../../components/input/wrapperInput'
 // import SelectInput from '../../../../../components/input/selectInput'
