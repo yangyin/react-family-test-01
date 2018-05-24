@@ -1,35 +1,40 @@
 import React,{ Component } from 'react'
-import { Route, Redirect, Switch } from 'react-router-dom'
+// import { Route, Redirect, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
+// import { Link } from 'react-router-dom'
+import { Route, Redirect, Switch,withRouter,Link } from 'react-router-dom'
 
-import styles from './home.css'
-import { Layout, Menu, Breadcrumb, Icon } from 'antd'
+// import styles from './home.css'
+import { Layout, Menu } from 'antd'
 import { systemMenuAction,systemMenuSuccess } from '../../redux/actions/home.action'
 
 import Menus from '../../components/menu/menu'
 import Contents from './content/content'
 
+import Register from './content/register/register'
+import Charge from './content/dispensingfees/charge'
 
-const { SubMenu } = Menu
+
+// const { SubMenu } = Menu
 const { Header, Content, Sider,Footer  } = Layout
 
 
 
 
 
-const test = ({match}) => {
-    console.log(match)
-    return (
-        <div>test page</div>
-    )
-}
+// const test = ({match}) => {
+//     console.log(match)
+//     return (
+//         <div>test page</div>
+//     )
+// }
 
-const home = ({match}) => {
-    console.log(match)
-    return (
-        <div>home page</div>
-    )
-}
+// const home = ({match}) => {
+//     console.log(match)
+//     return (
+//         <div>home page</div>
+//     )
+// }
 
 
 @connect(
@@ -59,7 +64,7 @@ class Home extends Component {
 
     watchChildrenKey(key) {
         console.log('home key  ',key)
-        console.log(this)
+        // console.log(this)
     }
 
     render() {
@@ -82,9 +87,27 @@ class Home extends Component {
                             >
                                 <Menu.Item><img src={require("../../img/banner-1.png")} style={{height:'50px'}} alt="logo"/><label style={{fontSize:'20px',color:'#2081c7',fontWeight:'700'}}>云诊所</label></Menu.Item>
                                 {
-                                    this.props.sysMenu.filter(v=>v.resId != '01-ytsz').map(v => (
-                                        <Menu.Item key={v.code}>{v.name}</Menu.Item>
-                                    ))
+                                    this.props.sysMenu.filter(v=>v.resId != '01-ytsz').map(v => {
+                                        // console.log(v.code)
+                                        let link = null
+                                        switch(v.code) {
+                                            case 'ROLE_CS_MZ_MENU':
+                                                link = <Link to="/home/register">{v.name}</Link>
+                                            break
+                                            case 'ROLE_SS_SFFY_MENU':
+                                                link = <Link to="/home/dispensingfees/charge">{v.name}</Link>
+                                            break
+                                            case 'ROLE_SS_YPGL_MENU':
+                                                link = <Link to="">{v.name}</Link>
+                                            break
+                                            case 'ROLE_SS_SJTJ_MENU':
+                                                link = <Link to="">{v.name}</Link>
+                                            break
+                                        }
+                                        return (<Menu.Item key={v.code}>
+                                                    {link}
+                                                </Menu.Item>)
+                                    })
                                 }
                             </Menu>
                         )  : null}
@@ -104,7 +127,12 @@ class Home extends Component {
                                 
                             </Sider>
                             <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                                <Contents />
+                                {/* <Switch>
+                                    <Route path={`${path}/register`} component={Register}/>
+                                    <Route path={`${path}/dispensingfees/charge`} component={Charge} />
+                                    <Redirect to={`${path}/register`} />
+                                </Switch> */}
+                                <Contents  />
                             </Content>
                         </Layout>
                     </Content>
@@ -112,10 +140,10 @@ class Home extends Component {
                         Ant Design ©2016 Created by Ant UED
                     </Footer>
                 </Layout>
-                <Switch>
+                {/* <Switch>
                     <Route path={`${path}`} exact component={home}></Route>
                     <Route path={`${path}/test`} component={test}></Route>
-                </Switch>
+                </Switch> */}
             </div>
         )
     }

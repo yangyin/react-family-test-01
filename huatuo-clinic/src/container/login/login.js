@@ -36,7 +36,7 @@ class Login extends Component {
         // console.log('login page',this.props)
         return (
             <div>
-                {this.props.user.baseUserInfo ?<Redirect to="/home" /> : null}
+                {this.props.user.baseUserInfo ?<Redirect to="/home/register" /> : null}
                 <Form className="login-form" onSubmit={this.handleSubmit}>
                     <FormItem>
                         <Input 

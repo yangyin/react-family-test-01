@@ -1,7 +1,7 @@
 import React    from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter,Route, Redirect, Switch } from 'react-router-dom'
-import {createStore,applyMiddleware,compose} from 'redux'
+import {createStore,applyMiddleware} from 'redux'
 import createSagaMiddleware  from 'redux-saga'
 import { Provider }     from 'react-redux'
 import './config'
@@ -32,6 +32,7 @@ ReactDOM.render(
                 <Switch>
                     <Route path='/login' component={Login}></Route>
                     <Route path="/home" component={Home}></Route>
+                    <Redirect to='/login' />
                 </Switch>
             </BrowserRouter>
         </Provider>

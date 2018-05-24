@@ -1,5 +1,5 @@
 
-import {select, put, call,takeLatest,fork } from 'redux-saga/effects'
+import { put, call,takeLatest,fork } from 'redux-saga/effects'
 import { LOGIN_ACTION,loginSuccessAction } from '../actions/user.action'
 import { login } from '../api/login';
 

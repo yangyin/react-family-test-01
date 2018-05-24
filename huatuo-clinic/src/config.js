@@ -22,8 +22,9 @@ axios.interceptors.response.use((response) => {
     // if(response.status == 200 && data && !response.code) {
     //     return data
     // }
-
-    if(response.code && response.code != '000000' ) {
+    
+    if(data.code && data.code != '000000' ) {
+      console.log(1111)
         message.error(data.message)
         return {data:null}
     }

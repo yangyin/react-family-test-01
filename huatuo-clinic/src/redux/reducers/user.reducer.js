@@ -16,6 +16,8 @@ export const user = (state=initalState,action)=> {
             // console.log('reducer',action.payload)
             localStorage.setItem('user',JSON.stringify(action.payload))
             return {...state,baseUserInfo:action.payload}
+        case LOGIN_USER_FAILURE:
+            return {state}
         default:
             return state
     }

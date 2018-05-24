@@ -1,6 +1,5 @@
 import React,{ Component } from 'react'
 
-import InputOption from '../../../../../components/input/wrapperInput'
 
 
 class RegisterRecord extends Component {

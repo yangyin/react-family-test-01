@@ -1,5 +1,6 @@
 import React,{ Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import { Menu } from 'antd'
 
@@ -67,7 +68,12 @@ class Menus extends Component {
                     {
                        
                         this.props.data ? this.props.data.map(v => (
-                            <Menu.Item key={v.code}>{v.name}</Menu.Item>
+                            <Menu.Item key={v.code}>
+                                {v.path?<Link to={v.path} >{v.name}</Link>:v.name}
+                                
+                                {/* {v.name} */}
+                            </Menu.Item>
+                            
                         )) : null
                     }
                 </Menu>
