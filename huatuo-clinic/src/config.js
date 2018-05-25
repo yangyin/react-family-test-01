@@ -2,8 +2,10 @@
 import axios from 'axios'
 import { message } from 'antd'
 import cookies  from 'browser-cookies'
- 
+
+axios.defaults.baseURL = 'http://zs.huatuooh.com'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+axios.defaults.withCredentials=true
 
 // console.log('dddd: ', window.location.host)
 
