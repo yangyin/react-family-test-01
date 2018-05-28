@@ -8,6 +8,8 @@ import { Route, Redirect, Switch,withRouter,Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 import { systemMenuAction,systemMenuSuccess } from '../../redux/actions/home.action'
 
+import imgs from './banner-1.png'
+
 import Menus from '../../components/menu/menu'
 import Contents from './content/content'
 
@@ -85,7 +87,7 @@ class Home extends Component {
                                 selectedKeys={[this.state.selectedKeys]}
                                 onClick={this.handleSusMenu}
                             >
-                                <Menu.Item><img src={require("../../img/banner-1.png")} style={{height:'50px'}} alt="logo"/><label style={{fontSize:'20px',color:'#2081c7',fontWeight:'700'}}>云诊所</label></Menu.Item>
+                                <Menu.Item><img src={imgs} style={{height:'50px'}} alt="logo"/><label style={{fontSize:'20px',color:'#2081c7',fontWeight:'700'}}>云诊所</label></Menu.Item>
                                 {
                                     this.props.sysMenu.filter(v=>v.resId != '01-ytsz').map(v => {
                                         // console.log(v.code)
