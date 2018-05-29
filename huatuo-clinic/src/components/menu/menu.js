@@ -30,18 +30,36 @@ class Menus extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
+        console.log('menu should Component Update----------')
+        console.log(nextProps)
+        console.log(nextState)
         return nextState.selectedKeys[0] != this.state.selectedKeys[0] ? true : false
     }
 
     componentWillReceiveProps(nextProps,nextState) {
+        console.log('menu component Will Receive Prop:--------')
+        // console.log(nextProps)
         if(nextProps.data.length >0&&nextProps.data[0].code != this.state.selectedKeys) {
+            console.log('menu...')
+            // this.props.navSelectKey(this.state.selectedKeys)
             this.setState({
                 selectedKeys:[nextProps.data[0].code]
             })
         }
     }
-
+    
+    componentWillUpdate(nextProps,nextState) {
+        console.log('menu component will update-----------')
+        // console.log(nextProps)
+        console.log(nextState)
+        console.log('select key:',this.state.selectedKeys)
+        // this.props.navSelectKey(nextState.selectedKeys)
+        this.setState({
+            selectedKeys:nextState.selectedKeys
+        })
+    }
     componentDidUpdate() {
+        console.log('menu component did update---------')
         this.props.navSelectKey(this.state.selectedKeys)
     }
 
@@ -54,6 +72,7 @@ class Menus extends Component {
     }
 
     render() {
+        console.log('menu render props data:',this.props.data)
         return (
             <div>
                 <Menu
@@ -68,7 +87,7 @@ class Menus extends Component {
                     {
                        
                         this.props.data ? this.props.data.map(v => (
-                            <Menu.Item key={v.code}>
+                            <Menu.Item key={v.code} data={v.code}>
                                 {v.path?<Link to={v.path} >{v.name}</Link>:v.name}
                                 
                                 {/* {v.name} */}

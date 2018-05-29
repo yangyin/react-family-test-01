@@ -10,7 +10,8 @@ import { systemMenuAction,systemMenuSuccess } from '../../redux/actions/home.act
 
 import imgs from './banner-1.png'
 import Menus from '../../components/menu/menu'
-import Register from './outpatient/register/register'
+import Outpatient from './outpatient/outpatient'
+// import Register from './outpatient/register/register'
 // import Contents from './content/content'
 // import Charge from './dispensingfees/charge'
 
@@ -46,13 +47,21 @@ class Home extends Component {
         sys_menu ? this.props.systemMenuSuccess(JSON.parse(sys_menu)) : this.props.systemMenuAction() 
     }
     handleSusMenu(e) {
-        // console.log(e)
+        console.log('点击home 顶层栏目，触发')
         this.setState({
             selectedKeys:e.key
         })
     }
 
     watchChildrenKey(key) {
+        switch(key[0]) {
+            case 'ROLE_SS_XGRYXX_MENU':
+                return this.props.history.push('/home')
+            case 'ROLE_SS_XKJZ_MENU':
+                return this.props.history.push('/home/visit')
+            default:
+            
+        }
         console.log('home key  ',key)
         // console.log(this)
     }
@@ -61,6 +70,7 @@ class Home extends Component {
         const topBar = {backgroundColor:'#2081c7',height:'32px',color:'#fff',lineHeight:'32px',padding:'0 100px'}
         const path = this.props.match.path
         const menusStyle = { height: '100%',lineHeight: '64px' }
+        console.log('home state:',this.state)
         return (
             // <div>
             //     home page
@@ -100,7 +110,7 @@ class Home extends Component {
                                                 link = <Link to="">{v.name}</Link>
                                             break
                                         }
-                                        return (<Menu.Item key={v.code}>
+                                        return (<Menu.Item key={v.code} data={v.code}>
                                                     {link}
                                                 </Menu.Item>)
                                     })
@@ -126,7 +136,7 @@ class Home extends Component {
                                 <Switch>
                                     
                                     <Route path='/home/dispensingfees/charge' component={ChargeComponent} />
-                                    <Route component={Register}/>
+                                    <Route path={`${path}`}  component={Outpatient}/>
                                     {/* <Redirect to={`${path}/register`} /> */}
                                 </Switch>
                                 {/* <Contents  /> */}
