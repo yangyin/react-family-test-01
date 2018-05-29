@@ -1,42 +1,30 @@
 import React,{ Component } from 'react'
 // import { Route, Redirect, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
-// import { Link } from 'react-router-dom'
 import { Route, Redirect, Switch,withRouter,Link } from 'react-router-dom'
+import Loadable from 'react-loadable'
 
 // import styles from './home.css'
 import { Layout, Menu } from 'antd'
 import { systemMenuAction,systemMenuSuccess } from '../../redux/actions/home.action'
 
 import imgs from './banner-1.png'
-
 import Menus from '../../components/menu/menu'
-import Contents from './content/content'
-
-// import Register from './content/register/register'
-import Charge from './content/dispensingfees/charge'
+import Register from './outpatient/register/register'
+// import Contents from './content/content'
+// import Charge from './dispensingfees/charge'
 
 
 // const { SubMenu } = Menu
 const { Header, Content, Sider,Footer  } = Layout
 
 
-
-
-
-// const test = ({match}) => {
-//     console.log(match)
-//     return (
-//         <div>test page</div>
-//     )
-// }
-
-// const home = ({match}) => {
-//     console.log(match)
-//     return (
-//         <div>home page</div>
-//     )
-// }
+const ChargeComponent = Loadable({
+    loader: () => import('./dispensingfees/charge'),
+    loading() {
+        return <div>Loading...</div>
+    }
+})
 
 
 @connect(
@@ -74,8 +62,14 @@ class Home extends Component {
         const path = this.props.match.path
         const menusStyle = { height: '100%',lineHeight: '64px' }
         return (
+            // <div>
+            //     home page
+            //     <img src={imgs} style={{height:'50px'}} alt="logo"/>
+            // </div>
             <div>
-                <div style={topBar}>header</div>
+                <div style={topBar}>
+                    header
+                </div>
                 <Layout>
                     <Header className="header" style={{backgroundColor:"#fff"}}>
                     
@@ -94,7 +88,7 @@ class Home extends Component {
                                         let link = null
                                         switch(v.code) {
                                             case 'ROLE_CS_MZ_MENU':
-                                                link = <Link to="/home/register">{v.name}</Link>
+                                                link = <Link to="/home">{v.name}</Link>
                                             break
                                             case 'ROLE_SS_SFFY_MENU':
                                                 link = <Link to="/home/dispensingfees/charge">{v.name}</Link>
@@ -128,24 +122,21 @@ class Home extends Component {
                                 }
                                 
                             </Sider>
-                            <Content style={{ padding: '0 24px', minHeight: 280 }}>
-                                {/* <Switch>
-                                    <Route path={`${path}/register`} component={Register}/>
-                                    <Route path={`${path}/dispensingfees/charge`} component={Charge} />
-                                    <Redirect to={`${path}/register`} />
-                                </Switch> */}
-                                <Contents  />
-                            </Content>
+                            <div style={{ padding: '0 24px', minHeight: 280 }}>
+                                <Switch>
+                                    
+                                    <Route path='/home/dispensingfees/charge' component={ChargeComponent} />
+                                    <Route component={Register}/>
+                                    {/* <Redirect to={`${path}/register`} /> */}
+                                </Switch>
+                                {/* <Contents  /> */}
+                            </div>
                         </Layout>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
                         Ant Design ©2016 Created by Ant UED
                     </Footer>
                 </Layout>
-                {/* <Switch>
-                    <Route path={`${path}`} exact component={home}></Route>
-                    <Route path={`${path}/test`} component={test}></Route>
-                </Switch> */}
             </div>
         )
     }

@@ -6,6 +6,8 @@ import { Form, Icon, Input, Button } from 'antd'
 
 import { loginAction } from '../../redux/actions/user.action'
 
+import imgs from '../../img/banner-1.png'
+
 @connect(
     state=>state,
     {loginAction}
@@ -36,7 +38,8 @@ class Login extends Component {
         // console.log('login page',this.props)
         return (
             <div>
-                {this.props.user.baseUserInfo ?<Redirect to="/home/register" /> : null}
+                {this.props.user.baseUserInfo ?<Redirect to="/home" /> : null}
+                <img src={imgs}/>
                 <Form className="login-form" onSubmit={this.handleSubmit}>
                     <FormItem>
                         <Input 
