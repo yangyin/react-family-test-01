@@ -8,11 +8,11 @@ import { Menu } from 'antd'
 
 /** 参数说明
  *  mode: 菜单排列方向："horizontal" /“inline”
-    navSelectKey： 返回外部调用方法
     style： 自定义样式
-    data：菜单展示数据 包括2个字段 code=>返回外部字段,选中效果  name: 显示名称
+    data：菜单展示数据 包括2个字段 { code=>返回外部字段,选中效果  name: 显示名称 可选参数：path:页面跳转路径 }
     可选参数：
         theme:主题色  'dark' 'light':默认
+        navSelectKey： 返回外部调用方法 
 */
 
 class Menus extends PureComponent {
