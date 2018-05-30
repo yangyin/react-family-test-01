@@ -1,4 +1,4 @@
-import React,{ Component } from 'react'
+import React,{ Component ,PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
@@ -15,7 +15,7 @@ import { Menu } from 'antd'
         theme:主题色  'dark' 'light':默认
 */
 
-class Menus extends Component {
+class Menus extends PureComponent {
     static propTypes = {
        data:PropTypes.array.isRequired, 
        mode:PropTypes.string.isRequired
@@ -29,38 +29,44 @@ class Menus extends Component {
         this.handleMenu = this.handleMenu.bind(this)
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('menu should Component Update----------')
-        console.log(nextProps)
-        console.log(nextState)
-        return nextState.selectedKeys[0] != this.state.selectedKeys[0] ? true : false
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('menu should Component Update----------')
+    //     console.log(nextProps)
+    //     console.log(nextState)
+    //     return nextState.selectedKeys[0] != this.state.selectedKeys[0] ? true : false
+    // }
 
     componentWillReceiveProps(nextProps,nextState) {
-        console.log('menu component Will Receive Prop:--------')
-        // console.log(nextProps)
-        if(nextProps.data.length >0&&nextProps.data[0].code != this.state.selectedKeys) {
-            console.log('menu...')
-            // this.props.navSelectKey(this.state.selectedKeys)
+        // console.log('menu component Will Receive Prop:--------')
+        console.log('Will Receive nextProps:',nextProps)
+        console.log('Will Receive Props:',this.props)
+        if(JSON.stringify(nextProps.data) != JSON.stringify(this.props.data)) {
             this.setState({
-                selectedKeys:[nextProps.data[0].code]
+                selectedKeys:nextProps.data.length>0 ? [nextProps.data[0].code]:null
             })
         }
+        // if(nextProps.data.length >0&&nextProps.data[0].code != this.state.selectedKeys) {
+        //     console.log('menu...')
+        //     this.props.navSelectKey(this.state.selectedKeys)
+        //     this.setState({
+        //         selectedKeys:[nextProps.data[0].code]
+        //     })
+        // }
     }
     
     componentWillUpdate(nextProps,nextState) {
-        console.log('menu component will update-----------')
+        // console.log('menu component will update-----------')
         // console.log(nextProps)
-        console.log(nextState)
-        console.log('select key:',this.state.selectedKeys)
+        // console.log('will update nextState: ',nextState)
+        // console.log('select keys:',this.state.selectedKeys)
         // this.props.navSelectKey(nextState.selectedKeys)
-        this.setState({
-            selectedKeys:nextState.selectedKeys
-        })
+        // this.setState({
+        //     selectedKeys:nextState.selectedKeys
+        // })
     }
     componentDidUpdate() {
-        console.log('menu component did update---------')
-        this.props.navSelectKey(this.state.selectedKeys)
+        // console.log('menu component did update---------')
+        // this.props.navSelectKey(this.state.selectedKeys)
     }
 
     handleMenu(e) {
@@ -68,11 +74,12 @@ class Menus extends Component {
             this.setState({
                 selectedKeys:[e.key]
             })
+            this.props.navSelectKey?this.props.navSelectKey(e.key):null
         }
     }
 
     render() {
-        console.log('menu render props data:',this.props.data)
+        // console.log('menu render props data:',this.props.data)
         return (
             <div>
                 <Menu
@@ -86,14 +93,34 @@ class Menus extends Component {
                     { this.props.mode == 'inline' ?<Menu.Item key="0" selectable={false}>菜单导航</Menu.Item>:null}
                     {
                        
-                        this.props.data ? this.props.data.map(v => (
-                            <Menu.Item key={v.code} data={v.code}>
-                                {v.path?<Link to={v.path} >{v.name}</Link>:v.name}
+                        this.props.data ? this.props.data.map(v => {
+                            let link = null
+                            if(v.path) {
+                                link = <Link to={v.path} >{v.name}</Link>
+                            } else {
+                                switch(v.code) {
+                                    case 'ROLE_SS_XGRYXX_MENU':
+                                        link = <Link to='/home' >{v.name}</Link>
+                                    break
+                                    case 'ROLE_SS_XKJZ_MENU':
+                                        link = <Link to='/home/visit' >{v.name}</Link>
+                                    break
+                                    default:
+                                        link = <Link to='/home' >{v.name}</Link>
+                                }
+                            }
+
+                            return (<Menu.Item key={v.code} data={v.code}>
+                                        {link}
+                                    </Menu.Item>)
+                        }
+                            // <Menu.Item key={v.code} data={v.code}>
+                            //     {v.path?<Link to={v.path} >{v.name}</Link>:v.name}
                                 
-                                {/* {v.name} */}
-                            </Menu.Item>
+                            //     {/* {v.name} */}
+                            // </Menu.Item>
                             
-                        )) : null
+                        ) : null
                     }
                 </Menu>
             </div>

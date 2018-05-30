@@ -39,7 +39,6 @@ class Home extends Component {
             selectedKeys:'ROLE_CS_MZ_MENU'
         }
         this.handleSusMenu = this.handleSusMenu.bind(this)
-        this.watchChildrenKey = this.watchChildrenKey.bind(this)
     }
     componentDidMount() {
         // console.log('sys menu mout:  ',this.props)
@@ -47,30 +46,22 @@ class Home extends Component {
         sys_menu ? this.props.systemMenuSuccess(JSON.parse(sys_menu)) : this.props.systemMenuAction() 
     }
     handleSusMenu(e) {
-        console.log('点击home 顶层栏目，触发')
-        this.setState({
-            selectedKeys:e.key
-        })
-    }
-
-    watchChildrenKey(key) {
-        switch(key[0]) {
-            case 'ROLE_SS_XGRYXX_MENU':
-                return this.props.history.push('/home')
-            case 'ROLE_SS_XKJZ_MENU':
-                return this.props.history.push('/home/visit')
-            default:
+        console.log('点击home 顶层栏目，触发',e.key)
+        console.log(this.state.selectedKeys)
+        if(this.state.selectedKeys != e.key) {
             
+            this.setState({
+                selectedKeys:e.key
+            })
         }
-        console.log('home key  ',key)
-        // console.log(this)
+        
     }
 
     render() {
         const topBar = {backgroundColor:'#2081c7',height:'32px',color:'#fff',lineHeight:'32px',padding:'0 100px'}
         const path = this.props.match.path
         const menusStyle = { height: '100%',lineHeight: '64px' }
-        console.log('home state:',this.state)
+        // console.log('home state:',this.state)
         return (
             // <div>
             //     home page
@@ -104,10 +95,10 @@ class Home extends Component {
                                                 link = <Link to="/home/dispensingfees/charge">{v.name}</Link>
                                             break
                                             case 'ROLE_SS_YPGL_MENU':
-                                                link = <Link to="">{v.name}</Link>
+                                                link = <Link to="/home/mangement">{v.name}</Link>
                                             break
                                             case 'ROLE_SS_SJTJ_MENU':
-                                                link = <Link to="">{v.name}</Link>
+                                                link = <Link to="/home/data">{v.name}</Link>
                                             break
                                         }
                                         return (<Menu.Item key={v.code} data={v.code}>
@@ -125,7 +116,6 @@ class Home extends Component {
                                     this.props.sysMenu.length>0 ? 
                                         <Menus 
                                             mode="inline" 
-                                            navSelectKey={this.watchChildrenKey}
                                             style={menusStyle}
                                             data={this.props.sysMenu.find(v=>v.code == this.state.selectedKeys).children}
                                         />: null

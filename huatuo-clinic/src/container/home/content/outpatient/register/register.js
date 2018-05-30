@@ -24,7 +24,7 @@ class Register extends  PureComponent {
     }
 
     watchChildrenKey(key) {
-       
+       console.log('register 触发')
         switch(key[0]) {
             case '1':
             break
@@ -42,7 +42,7 @@ class Register extends  PureComponent {
     }
     render() {
         const path = this.props.match.path
-        console.log('register paht: ',path)
+        // console.log('register paht: ',path)
         const data =[{code:'1',name:'挂号',path:'/register'},{code:'2',name:'挂号记录',path:'register/registerRecord'},{code:'3',name:'预约挂号',path:'home/register'},{code:'4',name:'外院挂号记录',path:'home/register'}]
         const menusStyle = { height: '100%',lineHeight: '30px',border:'none',width:'40vw' }
         return (

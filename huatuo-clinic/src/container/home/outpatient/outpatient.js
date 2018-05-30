@@ -11,7 +11,7 @@ class Outpatient extends  PureComponent {
 
     render() {
         const path = this.props.match.path
-        console.log('outpatient path: ',path)
+        // console.log('outpatient path: ',path)
         return (
             <div>
                 <Switch>
