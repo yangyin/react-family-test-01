@@ -6,8 +6,11 @@ import { Form, Icon, Input, Button } from 'antd'
 
 import { loginAction } from '../../redux/actions/user.action'
 
-import imgs from '../../img/banner-1.png'
+// import imgs from '../../img/login.png'
 
+import './login.css'
+
+@Form.create()
 @connect(
     state=>state,
     {loginAction}
@@ -15,56 +18,55 @@ import imgs from '../../img/banner-1.png'
 class Login extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            name:null,
-            pwd:null
-        }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
-    onChange(key,e) {
-        // console.log(e.target.value)
-        this.setState({
-            [key]:e.target.value
-        })
-    }
+
     handleSubmit(e) {
         e.preventDefault();
-        // console.log(this.props)
-        this.props.loginAction(this.state)
-        // this.props.dispatch(loginAction(this.state))
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+              console.log('Received values of form: ', values)
+              this.props.loginAction(values)
+            }
+        })
     }
+
     render() {
         const FormItem = Form.Item
+        const { getFieldDecorator } = this.props.form
         // console.log('login page',this.props)
         return (
-            <div>
+            <div className="login">
                 {this.props.user.baseUserInfo ?<Redirect to="/home" /> : null}
-                <img src={imgs}/>
+                {/* <img src={imgs}/> */}
+                
                 <Form className="login-form" onSubmit={this.handleSubmit}>
+                    <h1>个体云登录</h1>
                     <FormItem>
-                        <Input 
-                            placeholder="用户名"
-                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            value={this.state.name} 
-                            onChange={(e) => this.onChange('name',e)}
-                        />
+                        {getFieldDecorator('name', {
+                            rules: [{ required: true, message: 'Please input your username!' }],
+                        })(
+                            <Input 
+                                placeholder="用户名"
+                                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            />
+                        )}
                     </FormItem>
                     <FormItem>
-                    <Input 
-                        placeholder="密码"
-                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                        value={this.state.pwd}
-                        onChange={(e) => this.onChange('pwd',e)}
-                    />
-                </FormItem>
-                <FormItem>
-                <Button
-                    type="primary"
-                    htmlType="submit"
-                    className="login-form-button"
-                >登录</Button>
-                </FormItem>
+                        {getFieldDecorator('pwd', {
+                            rules: [{ required: true, message: 'Please input your Password!' }],
+                        })(
+                            <Input 
+                                placeholder="密码"
+                                prefix={<Icon type="pwd" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            />
+                        )}
+                    </FormItem>
+                    <FormItem>
+                        <Button type="primary" htmlType="submit" className="login-form-button">登录</Button>
+                    </FormItem>
                 </Form>
+                <p className="login-footer"> Copyright © 2016 huatuowy.com Inc. All rights reserved. 华佗在线 版权所有 </p>
             </div>
         )
     }

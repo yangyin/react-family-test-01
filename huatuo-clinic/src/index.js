@@ -9,7 +9,7 @@ import './config'
 import reducers from './redux/reducers'
 import rootSaga from './redux/sagas/sagas'
 
-import './index.css'
+import './index.less'
 // import App from './App'
 import Login from './container/login/login'
 import Home from './container/home/home'
