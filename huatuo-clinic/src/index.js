@@ -1,6 +1,6 @@
 import React    from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter,Route, Redirect, Switch } from 'react-router-dom'
+import { BrowserRouter,HashRouter,Route, Redirect, Switch } from 'react-router-dom'
 import {createStore,applyMiddleware} from 'redux'
 import createSagaMiddleware  from 'redux-saga'
 import { Provider }     from 'react-redux'
@@ -28,13 +28,13 @@ SagaMiddleware.run(rootSaga)
 ReactDOM.render(
     (
         <Provider store={store}>
-            <BrowserRouter>
+            <HashRouter>
                 <Switch>
                     <Route path='/login' component={Login}></Route>
                     <Route path="/home" component={Home}></Route>
                     <Redirect to='/login' />
                 </Switch>
-            </BrowserRouter>
+            </HashRouter>
         </Provider>
     ),
     document.getElementById('root'))
